@@ -1,0 +1,8 @@
+---
+import Layout from '@/layouts/layout.astro';
+import SummarizeArticleForm from '@/features/summarize-article/SummarizeArticleForm.svelte';
+---
+
+<Layout title='Podsumuj artykuł' sidebarActive='summarize-article'>
+  <SummarizeArticleForm client:load />
+</Layout>
