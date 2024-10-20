@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import OpenAI from 'openai';
-import { SUMMARIZE_ARTICLE_MESSAGES } from '@/features/summarize-article/summarize-article-prompts';
+import { SUMMARIZE_ARTICLE_MESSAGES } from '@/features/storytelling/storytelling-prompts';
 
 export const prerender = false;
 
@@ -11,7 +11,6 @@ interface RequestBody {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  console.log('Summarize article request received');
   try {
     const { inputText, apiKey, modelName }: RequestBody = await request.json();
 

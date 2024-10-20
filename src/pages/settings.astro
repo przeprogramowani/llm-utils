@@ -4,5 +4,5 @@ import ApiKeysForm from '@/features/settings/ApiKeysForm.svelte';
 ---
 
 <Layout title='Ustawienia' sidebarActive='settings'>
-  <ApiKeysForm client:load />
+  <ApiKeysForm client:only='svelte' />
 </Layout>

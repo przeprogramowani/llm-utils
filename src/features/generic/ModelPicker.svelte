@@ -20,7 +20,7 @@
     for="model-picker"
     class="block text-sm font-medium leading-6 text-gray-900"
   >
-    Select Model:
+    Model językowy
   </label>
   <div class="mt-2">
     <select

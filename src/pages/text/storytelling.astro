@@ -1,0 +1,8 @@
+---
+import Layout from '@/layouts/layout.astro';
+import StorytellingForm from '@/features/storytelling/StorytellingForm.svelte';
+---
+
+<Layout title='Storytelling' sidebarActive='storytelling'>
+  <StorytellingForm client:only='svelte' />
+</Layout>

@@ -10,6 +10,8 @@
     LS_ANTHROPIC_KEY,
   } from '@/features/generic/constants';
 
+  const API_URL = '/api/storytelling';
+
   let inputText = '';
   let selectedModel = 'gpt-4o';
   let apiKey = '';
@@ -41,7 +43,7 @@
     error = '';
 
     try {
-      const response = await axios.post('/api/summarize-article', {
+      const response = await axios.post(API_URL, {
         modelName: selectedModel,
         inputText,
         apiKey,
@@ -60,14 +62,7 @@
 <div class="bg-white rounded-xl shadow-sm p-4 mt-8">
   <form on:submit|preventDefault={handleSubmit}>
     <div class="space-y-12">
-      <div class="border-b border-gray-900/10 pb-12">
-        <h2 class="text-base font-semibold leading-7 text-gray-900">
-          Summarize Article
-        </h2>
-        <p class="mt-1 text-sm leading-6 text-gray-600">
-          Paste your article text below and select a model to summarize it.
-        </p>
-
+      <div class="pb-4">
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="col-span-full">
             <ModelPicker on:modelChange={handleModelChange} />
@@ -76,7 +71,7 @@
             <label
               for="input-text"
               class="block text-sm font-medium leading-6 text-gray-900"
-              >Article Text</label
+              >Tekst do opracowania</label
             >
             <div class="mt-2">
               <textarea
@@ -98,7 +93,7 @@
         class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         disabled={isLoading}
       >
-        {isLoading ? 'Generuję podsumowanie...' : 'Podsumuj artykuł'}
+        {isLoading ? 'Generuję...' : 'Wygeneruj'}
       </button>
     </div>
 
