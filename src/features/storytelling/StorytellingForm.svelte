@@ -63,7 +63,7 @@
   <form on:submit|preventDefault={handleSubmit}>
     <div class="space-y-12">
       <div class="pb-4">
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="col-span-full">
             <ModelPicker on:modelChange={handleModelChange} />
           </div>

@@ -7,7 +7,7 @@ Twoim zadaniem jest podsumować tekst, który przekażę ci w kolejnej wiadomoś
 const ASSISTANT_ACKNOWLEDGE_PROMPT = `Zrozumiałem. Przekaż mi tekst do podsumowania.`;
 const ASSISTANT_ASK_QUESTIONS_PROMPT = `Dziękuję za tekst. Jakie zadania muszę wykonać?`;
 
-const ARTICLE_ANALYSIS_PROMPT = `
+const KEY_QUESTIONS_PROMPT = `
 Wykonaj następujące czynności:
 
 1.) Przeanalizuj tekst wejściowy i wygeneruj 5 zasadniczych pytań, które po udzieleniu odpowiedzi uchwycą główne punkty i podstawowe znaczenie tekstu.
@@ -17,13 +17,26 @@ b. Zidentyfikuj kluczowe pomysły wspierające
 c. Podkreślenie ważnych faktów lub dowodów
 d. Ujawnienie celu lub perspektywy autora
 e. Wyjaśnienie wszelkich istotnych implikacji lub wniosków.
-3.) Odpowiedz na każde pytanie w 4-5 zdaniach. Dołącz konkretny przykład, aby zilustrować swój punkt widzenia.
+3.) Odpowiedz na każde pytanie w 4-5 zdaniach. Dołącz konkretny przykład, aby zilustrować swój punkt widzenia.`;
 
-Wygeneruj odpowiedź z formatowaniem markdown - pytania to nagłówki h2, odpowiedzi to akapity p.`;
+export const STORYTELLING_PROMPT = `
+Na podstawie przekazanego tekstu, kluczowych pytań i odpowiedzi przygotuj angażujący storytelling do podcastu.
 
-export const SUMMARIZE_ARTICLE_MESSAGES: (
-  articleText: string,
-) => OpenAI.ChatCompletionMessageParam[] = (articleText: string) => [
+Zastosuj następujący schemat:
+
+1. Wprowadź słuchacza do tematu pokazując szerszą perspektywę na omawiany temat (ekonomiczna, polityczna, społeczna)
+2. Zaznacz kluczowy problem lub wyzwanie - co sprawia, że omawiany temat jest aktualny i istotny?
+3. Przedstaw główne wydarzenie, osiągnięcie lub odkrycie - jeśli to możliwe, wymień firmę, autora lub podmiot związany z tematem.
+4. Rozwiń temat prezentując główne punkty w formie kilku akapitów do pogłębenia tematu.
+5. Podsumuj potencjalne kierunki rozwoju omawianego tematu.
+6. Zaproponuj trzy pytania otwarte do dalszej refleksji.
+
+Generuj odpowiedzi w formie notatek z formatowaniem markdown - stosuj listy punktowane i pogrubione nagłówki.
+`;
+
+export const STORYTELLING_BASE_MESSAGES: (
+  inputText: string,
+) => OpenAI.ChatCompletionMessageParam[] = (inputText: string) => [
   {
     role: 'user',
     content: START_PROMPT,
@@ -34,7 +47,7 @@ export const SUMMARIZE_ARTICLE_MESSAGES: (
   },
   {
     role: 'user',
-    content: articleText,
+    content: inputText,
   },
   {
     role: 'assistant',
@@ -42,6 +55,6 @@ export const SUMMARIZE_ARTICLE_MESSAGES: (
   },
   {
     role: 'user',
-    content: ARTICLE_ANALYSIS_PROMPT,
+    content: KEY_QUESTIONS_PROMPT,
   },
 ];

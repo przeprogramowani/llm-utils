@@ -1,6 +1,9 @@
 import type { APIRoute } from 'astro';
 import OpenAI from 'openai';
-import { SUMMARIZE_ARTICLE_MESSAGES } from '@/features/storytelling/storytelling-prompts';
+import {
+  STORYTELLING_BASE_MESSAGES,
+  STORYTELLING_PROMPT,
+} from '@/features/storytelling/storytelling-prompts';
 
 export const prerender = false;
 
@@ -18,10 +21,30 @@ export const POST: APIRoute = async ({ request }) => {
       apiKey,
     });
 
+    const storytellingMessages = STORYTELLING_BASE_MESSAGES(inputText);
+
+    const keyQuestionsResponse = await client.chat.completions.create({
+      model: modelName,
+      stream: false,
+      messages: storytellingMessages,
+    });
+
+    const result = keyQuestionsResponse.choices[0].message.content;
+
+    storytellingMessages.push({
+      role: 'assistant',
+      content: result,
+    });
+
+    storytellingMessages.push({
+      role: 'user',
+      content: STORYTELLING_PROMPT,
+    });
+
     const response = await client.chat.completions.create({
       model: modelName,
       stream: false,
-      messages: SUMMARIZE_ARTICLE_MESSAGES(inputText),
+      messages: storytellingMessages,
     });
 
     return new Response(JSON.stringify(response), {
