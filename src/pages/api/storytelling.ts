@@ -49,7 +49,7 @@ export const POST: APIRoute = async ({ request }) => {
       conversation.toMessages(),
     );
 
-    conversation.extend([
+    const translateConversation = new Conversation([
       {
         role: 'assistant',
         content: storytellingResponse,
@@ -63,7 +63,7 @@ export const POST: APIRoute = async ({ request }) => {
     const translatedResponse = await createChatCompletion(
       apiKey,
       modelName,
-      conversation.toMessages(),
+      translateConversation.toMessages(),
     );
 
     return new Response(JSON.stringify(translatedResponse), {
