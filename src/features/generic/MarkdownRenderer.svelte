@@ -17,6 +17,7 @@
   }
   .markdown-content :global(h2) {
     font-size: 1.5em;
+    font-weight: bold;
     margin-bottom: 0.5em;
   }
   .markdown-content :global(p) {
