@@ -64,19 +64,25 @@ Given the following text, generate a scenario that adheres to the following stru
    - Include relevant details and nuances to deepen the discussion.
    - Consider historical context, impacts, stakeholders, counterarguments, and supporting data if applicable.
 
-5. What's Next?
+5. Alternative viewpoints and counterarguments
+   - List up to 3 key counterarguments and alternative viewpoints.
+
+6. What's Next?
    - Briefly summarize future implications or next steps related to the topic.
    - Discuss potential developments or trends that could follow.
 
-6. Follow-up Questions
+7. Follow-up Questions
    - Propose three open-ended questions for further discussion between podcast hosts.
    - These questions should explore deeper aspects of the topic and encourage diverse viewpoints.
+
+8. Valuable quotes
+   - List up to 3 critically important quotes from the text that support the key issue and extended summary.
 
 Important: Generate podcast scenario as plaintext with Markdown formatting. Each section is a h2 heading, with content described as paragraphs or bullet lists where appropriate. Do not use "code" blocks. Avoid exaggerations and marketing words such as massive, revolutionary, groundbreaking, transformative, and paradigm-shifting. Prefer short and concise sentences such as those from Paul Graham essays.
 `;
 
 export const TRANSLATE_TO_POLISH_PROMPT = `
-Translate the storytelling notes that you've just created into Polish - avoid any extra comments or remarks.
+Translate the storytelling notes that you've just created into Polish - avoid any extra comments or remarks. Do not translate quotes (the last section).
 `;
 
 export const STORYTELLING_BASE_MESSAGES: (
