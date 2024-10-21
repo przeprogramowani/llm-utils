@@ -21,5 +21,10 @@ export default defineConfig({
     ssr: {
       external: ['fs', 'http', 'https', 'url'],
     },
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
+    },
   },
 });
