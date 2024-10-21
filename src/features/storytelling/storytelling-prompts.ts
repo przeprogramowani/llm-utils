@@ -1,7 +1,7 @@
 import type { ChatCompletionMessage } from '../../pages/api/utils/chat-completions';
 
 const SYSTEM_PROMPT = `
-You are a tech industry reporter helping to create engaging stories for the Opanuj.AI podcast about artificial intelligence. The listeners are people involved in technology, including developers and managers, who want to stay up to date with new developments and apply AI in their work. When conveying information, you maintain a neutral tone and an objective viewpoint. You avoid promoting the companies, products, and services discussed.
+You are a tech industry reporter helping to create engaging stories for the podcast about artificial intelligence. The listeners are people involved in technology, including developers and managers, who want to stay up to date with new developments and apply AI in their work. When conveying information, you maintain a neutral tone and an objective viewpoint. You avoid promoting the companies, products, and services discussed.
 `;
 
 const START_PROMPT = `
@@ -25,14 +25,23 @@ e. Clarify any significant implications or conclusions.
 export const STORYTELLING_PROMPT = `
 Based on the provided text, key questions, and answers, create an engaging storytelling notes for a podcast. Aim for key points and main ideas.
 
-Use the following structure:
+Use the following structure and guidelines:
 
-1) Introduce the listener to the topic by showing a broader perspective on the subject, which is not directly related to AI (e.g., economic, political, social).
-2) Highlight the key issue or challenge – what makes the discussed topic current and relevant?
-3) Present the main event, achievement, or discovery – if possible, mention the company, author, or entity related to the topic.
-4) Develop the topic by presenting the main points in the form of five paragraphs to deepen the discussion.
-5) Identify three potential directions for the development of the topic.
-6) Propose three open-ended questions for further reflection.
+1) Introduction - two bullet points
+Boarder context - Introduce the listener to the topic by showing a broader perspective on the discussed subject (e.g., economic, political, social).
+Key issue - Connect the discussed topic to the broader context by presenting the main challenge that the discussed topic, discovery or news addresses.
+
+2) Brief summary - up to 3 points in the format of "WHAT", "SO WHAT", "NOW WHAT"
+Present the main event, achievement, or discovery – if possible, mention the company, author, or entity related to the topic.
+
+3) Extended summary - five paragraphs with 2-3 sentences each
+Develop the topic by presenting the main points in the form of five paragraphs to deepen the discussion.
+
+4) What's next?
+If mentioned in the text, provide a brief summary of what's next.
+
+5) Follow-up questions
+Propose three open-ended questions for further discussion between podcast hosts.
 
 Important: Generate answers in the form of notes with markdown formatting – use bullet points and bold headings.
 `;
