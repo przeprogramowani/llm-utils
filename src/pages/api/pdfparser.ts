@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
-import pdf from 'pdf-parse-new';
+// import pdf from 'pdf-parse-new';
 import { errorHandler } from './utils/error-handling';
+import { extractText, getDocumentProxy } from 'unpdf';
 
 export const prerender = false;
 
@@ -21,9 +22,12 @@ export const POST: APIRoute = async ({ request }) => {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const parsedData = await pdf(buffer);
+    const pdf = await getDocumentProxy(new Uint8Array(buffer));
+    const { totalPages, text } = await extractText(pdf, { mergePages: true });
 
-    return new Response(JSON.stringify({ text: parsedData.text }), {
+    // const parsedData = parsePDF(arrayBuffer);
+
+    return new Response(JSON.stringify({ text }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
