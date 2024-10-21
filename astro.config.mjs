@@ -6,9 +6,8 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: cloudflare({
-    imageService: 'passthrough',
-  }),
+  output: 'server',
+  adapter: cloudflare(),
   integrations: [tailwind(), svelte()],
   server: {
     port: 3000,
@@ -19,6 +18,11 @@ export default defineConfig({
   vite: {
     ssr: {
       external: ['fs', 'http', 'https', 'url'],
+    },
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
     },
   },
 });
