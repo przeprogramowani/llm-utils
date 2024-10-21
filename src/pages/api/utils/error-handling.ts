@@ -1,6 +1,11 @@
 export function errorHandler(error: unknown) {
-  console.error('Error:', error);
-  return new Response(JSON.stringify(error), {
+  const errorMessage =
+    error instanceof Error ? error.message : 'An unknown error occurred';
+
+  return new Response(JSON.stringify({ error: errorMessage }), {
     status: 500,
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 }
