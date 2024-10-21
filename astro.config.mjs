@@ -16,4 +16,9 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  vite: {
+    ssr: {
+      external: ['fs', 'http', 'https', 'url'],
+    },
+  },
 });
