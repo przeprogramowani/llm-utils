@@ -24,6 +24,7 @@
   }
   .markdown-content :global(ul),
   .markdown-content :global(ol) {
+    list-style-type: disc;
     margin-bottom: 1em;
     padding-left: 2em;
   }

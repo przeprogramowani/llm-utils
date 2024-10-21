@@ -1,5 +1,9 @@
 import OpenAI from 'openai';
 
+const SYSTEM_PROMPT = `
+Jesteś przyjaznym asystentem, który pomaga w tworzeniu angażujących historii do podcastu Opanuj.AI o sztucznej inteligencji. Słuchacze to osoby związane z technologią, w tym programiści i managerowie, którzy chcą być na bieżąco z nowościami i móc stosować AI w swojej pracy.
+`;
+
 const START_PROMPT = `
 Twoim zadaniem jest podsumować tekst, który przekażę ci w kolejnej wiadomości. Zapoznaj się z jego treścią i wykonaj zadania, które przekażę ci poniżej.
 `;
@@ -24,11 +28,11 @@ Na podstawie przekazanego tekstu, kluczowych pytań i odpowiedzi przygotuj anga�
 
 Zastosuj następujący schemat:
 
-1. Wprowadź słuchacza do tematu pokazując szerszą perspektywę na omawiany temat (ekonomiczna, polityczna, społeczna)
+1. Wprowadź słuchacza do tematu pokazując szerszą perspektywę na omawiany temat, która nie jest bezpośrednio związana z AI (np. ekonomiczna, polityczna, społeczna).
 2. Zaznacz kluczowy problem lub wyzwanie - co sprawia, że omawiany temat jest aktualny i istotny?
 3. Przedstaw główne wydarzenie, osiągnięcie lub odkrycie - jeśli to możliwe, wymień firmę, autora lub podmiot związany z tematem.
-4. Rozwiń temat prezentując główne punkty w formie kilku akapitów do pogłębenia tematu.
-5. Podsumuj potencjalne kierunki rozwoju omawianego tematu.
+4. Rozwiń temat prezentując główne punkty w formie pięciu akapitów do pogłębenia tematu.
+5. Wskaż trzy potencjalne kierunki rozwoju omawianego tematu.
 6. Zaproponuj trzy pytania otwarte do dalszej refleksji.
 
 Generuj odpowiedzi w formie notatek z formatowaniem markdown - stosuj listy punktowane i pogrubione nagłówki.
@@ -37,6 +41,10 @@ Generuj odpowiedzi w formie notatek z formatowaniem markdown - stosuj listy punk
 export const STORYTELLING_BASE_MESSAGES: (
   inputText: string,
 ) => OpenAI.ChatCompletionMessageParam[] = (inputText: string) => [
+  {
+    role: 'system',
+    content: SYSTEM_PROMPT,
+  },
   {
     role: 'user',
     content: START_PROMPT,
