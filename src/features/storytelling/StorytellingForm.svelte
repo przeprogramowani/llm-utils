@@ -13,10 +13,14 @@
 
   const API_URL = '/api/storytelling';
   const PDF_PARSER_URL = '/api/pdfparser';
+  const SCRAPER_URL = '/api/urlscraper';
+
+  let selectedModel = 'gpt-4o';
 
   let inputText = '';
   let pdfText = '';
-  let selectedModel = 'gpt-4o';
+  let urlText = '';
+  let url = '';
   let apiKey = '';
   let summary = '';
   let isLoading = false;
@@ -24,22 +28,40 @@
   let pdfFile: File | null = null;
 
   onMount(() => {
-    const openAIKey = localStorage.getItem(LS_OPENAI_KEY);
-    const anthropicKey = localStorage.getItem(LS_ANTHROPIC_KEY);
+    const openAIKey = localStorage.getItem(LS_OPENAI_KEY) || '';
+    const anthropicKey = localStorage.getItem(LS_ANTHROPIC_KEY) || '';
     apiKey = selectedModel.includes('gpt') ? openAIKey : anthropicKey;
   });
 
-  function handleModelChange(event) {
+  function handleModelChange(event: CustomEvent<{ model: string }>) {
     selectedModel = event.detail.model;
     apiKey = selectedModel.includes('gpt')
       ? localStorage.getItem(LS_OPENAI_KEY)
       : localStorage.getItem(LS_ANTHROPIC_KEY);
   }
 
+  async function extractFromPDF(pdfFile: File) {
+    const formData = new FormData();
+    formData.append('pdf', pdfFile);
+
+    const pdfResponse = await axios.post(PDF_PARSER_URL, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    pdfText = pdfResponse.data.text;
+  }
+
+  async function extractFromURL(url: string) {
+    const urlResponse = await axios.post(SCRAPER_URL, { url });
+    inputText = urlResponse.data.text;
+  }
+
   async function handleSubmit() {
-    if ((!inputText && !pdfFile) || !apiKey) {
+    if ((!inputText && !pdfFile && !url) || !apiKey) {
       error =
-        'Please provide input text or upload a PDF and ensure API key is set in settings.';
+        'Please provide source text (raw, PDF or URL) and ensure API key is set in settings.';
       return;
     }
 
@@ -48,24 +70,20 @@
 
     try {
       if (pdfFile) {
-        const formData = new FormData();
-        formData.append('pdf', pdfFile);
-
-        const pdfResponse = await axios.post(PDF_PARSER_URL, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-
-        pdfText = pdfResponse.data.text;
+        await extractFromPDF(pdfFile);
       }
 
-      const response = await axios.post(API_URL, {
-        modelName: selectedModel,
-        inputText: inputText || pdfText,
-        apiKey,
-      });
-      summary = response.data;
+      if (url) {
+        await extractFromURL(url);
+        console.log(urlText);
+      }
+
+      // const response = await axios.post(API_URL, {
+      //   modelName: selectedModel,
+      //   inputText: inputText || pdfText || urlText,
+      //   apiKey,
+      // });
+      // summary = response.data;
     } catch (err) {
       error =
         'An error occurred while processing your request. Please try again.';
@@ -132,6 +150,19 @@
             accept="application/pdf"
             on:change={handleFileChange}
             class="block w-full text-sm text-gray-900 cursor-pointer focus:outline-none"
+          />
+        </div>
+        <label
+          for="pdf-upload"
+          class="block text-sm font-medium leading-6 text-gray-900 mt-4"
+          >URL do opracowania</label
+        >
+        <div class="mt-2">
+          <input
+            type="text"
+            id="url-input"
+            bind:value={url}
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           />
         </div>
       </div>
