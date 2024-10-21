@@ -6,8 +6,10 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
-  adapter: cloudflare(),
+  output: 'hybrid',
+  adapter: cloudflare({
+    imageService: 'passthrough',
+  }),
   integrations: [tailwind(), svelte()],
   server: {
     port: 3000,
