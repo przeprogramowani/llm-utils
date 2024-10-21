@@ -1,1 +1,4 @@
+name = "llm-utils"
+pages_build_output_dir = "./dist"
+
 tsconfig = "tsconfig.json"
