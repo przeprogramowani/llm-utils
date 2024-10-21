@@ -55,7 +55,7 @@
 
   async function extractFromURL(url: string) {
     const urlResponse = await axios.post(SCRAPER_URL, { url });
-    inputText = urlResponse.data.text;
+    urlText = urlResponse.data.text;
   }
 
   async function handleSubmit() {
@@ -75,15 +75,14 @@
 
       if (url) {
         await extractFromURL(url);
-        console.log(urlText);
       }
 
-      // const response = await axios.post(API_URL, {
-      //   modelName: selectedModel,
-      //   inputText: inputText || pdfText || urlText,
-      //   apiKey,
-      // });
-      // summary = response.data;
+      const response = await axios.post(API_URL, {
+        modelName: selectedModel,
+        inputText: inputText || pdfText || urlText,
+        apiKey,
+      });
+      summary = response.data;
     } catch (err) {
       error =
         'An error occurred while processing your request. Please try again.';
