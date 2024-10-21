@@ -34,6 +34,7 @@ async function createOpenAIChatCompletion(
   const response = await client.chat.completions.create({
     model: modelName,
     stream: false,
+    temperature: 0.5,
     messages,
   });
 
@@ -56,6 +57,7 @@ async function createAnthropicChatCompletion(
     model: modelName,
     system: systemMessage?.content,
     max_tokens: 4096,
+    temperature: 0.5,
     stream: false,
     messages: appMessages as MessageParam[],
   });

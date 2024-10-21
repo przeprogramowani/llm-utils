@@ -3,6 +3,7 @@ import {
   STORYTELLING_BASE_MESSAGES,
   STORYTELLING_PROMPT,
   TRANSLATE_TO_POLISH_PROMPT,
+  TRANSLATE_TO_POLISH_SYSTEM_PROMPT,
 } from '@/features/storytelling/storytelling-prompts';
 
 import { errorHandler } from './utils/error-handling';
@@ -51,12 +52,16 @@ export const POST: APIRoute = async ({ request }) => {
 
     const translateConversation = new Conversation([
       {
-        role: 'assistant',
-        content: storytellingResponse,
+        role: 'system',
+        content: TRANSLATE_TO_POLISH_SYSTEM_PROMPT,
       },
       {
         role: 'user',
         content: TRANSLATE_TO_POLISH_PROMPT,
+      },
+      {
+        role: 'user',
+        content: storytellingResponse,
       },
     ]);
 

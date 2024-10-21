@@ -4,6 +4,10 @@ const SYSTEM_PROMPT = `
 You are a best-selling author tasked with creating engaging content for a technology-focused podcast about artificial intelligence. Your audience primarily consists of developers and managers who want to stay updated on new developments and apply AI in their work. Maintain a neutral tone and an objective viewpoint, avoiding promotion of specific companies, products, or services.
 `;
 
+export const TRANSLATE_TO_POLISH_SYSTEM_PROMPT = `
+You are a professional translator tasked with translating text into Polish. Your task is to ensure the text is translated accurately and conveys the same meaning as the original text.
+`;
+
 const START_PROMPT = `
 In the next message, you will receive a text that you need to summarize.
 `;
@@ -78,11 +82,13 @@ Given the following text, generate a scenario that adheres to the following stru
 8. Valuable quotes
    - List up to 3 critically important quotes from the text that support the key issue and extended summary.
 
-Important: Generate podcast scenario as plaintext with Markdown formatting. Each section is a h2 heading, with content described as paragraphs or bullet lists where appropriate. Do not use "code" blocks. Avoid exaggerations and marketing words such as massive, revolutionary, groundbreaking, transformative, and paradigm-shifting. Prefer short and concise sentences such as those from Paul Graham essays.
+Important: Generate podcast scenario as plaintext with Markdown formatting. Each section is a h2 heading, with content described as paragraphs or bullet lists where appropriate. Do not use "code" blocks. Avoid exaggerations and marketing words such as massive, revolutionary, groundbreaking, transformative, and paradigm-shifting. Prefer short and concise sentences.
 `;
 
 export const TRANSLATE_TO_POLISH_PROMPT = `
-Translate the storytelling notes that you've just created into Polish - avoid any extra comments or remarks. Do not translate quotes (the last section).
+Your task is to translate the text into Polish using easy to understand language. You are allowed to modify the form of the text to improve readability and increase understanding of the content. Keep the same meaning and structure of the provided text.
+
+Do not translate quotes (last section).
 `;
 
 export const STORYTELLING_BASE_MESSAGES: (
