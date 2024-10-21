@@ -1,10 +1,11 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { LLM } from './models';
 
   const models = [
-    { value: 'gpt-4o', label: 'GPT-4o' },
-    { value: 'gpt-4o-mini', label: 'GPT-4o Mini' },
-    { value: 'claude-3.5-sonnet', label: 'Claude 3.5 Sonnet' },
+    { value: LLM.GPT_4O, label: 'GPT-4o' },
+    { value: LLM.GPT_4O_MINI, label: 'GPT-4o Mini' },
+    { value: LLM.CLAUDE_3_5_SONNET, label: 'Claude 3.5 Sonnet' },
   ];
 
   let selectedModel = models[0].value;
@@ -28,7 +29,7 @@
       id="model-picker"
       bind:value={selectedModel}
       on:change={handleModelChange}
-      class="block w-1/3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
     >
       {#each models as model}
         <option value={model.value}>{model.label}</option>
